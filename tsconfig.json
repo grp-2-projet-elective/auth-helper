@@ -1,0 +1,49 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "esnext",
+    "module": "CommonJS",
+    "lib": [
+      "esnext"
+    ],
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "declaration": true,
+    "importHelpers": true,
+    "inlineSources": false,
+    "noEmitHelpers": true,
+    "preserveConstEnums": true,
+    "removeComments": false,
+    "sourceMap": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": false,
+    "skipDefaultLibCheck": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "paths": {
+      "*": [
+        "./src/*"
+      ],
+      "./*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "./src/**/*",
+    "./src/**/*.json"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  }
+}
