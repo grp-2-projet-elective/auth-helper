@@ -1,19 +1,43 @@
 {
-  "name": "auth-helper",
+  "name": "@grp-2-projet-elective/auth-helper",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.js",
+  "type": "module",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint . --ext .ts",
+    "test": "",
+    "patch-version": "npm version patch",
+    "prebuild": "npm run patch-version",
+    "build": "tsup src/index.ts --format cjs --clean --dts",
+    "prepublish-pkg": "npm run build",
+    "publish-pkg": "npm publish"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/grp-2-projet-elective/auth-helper.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/grp-2-projet-elective/auth-helper/issues"
   },
-  "homepage": "https://github.com/grp-2-projet-elective/auth-helper#readme"
+  "homepage": "https://github.com/grp-2-projet-elective/auth-helper#readme",
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.28.0",
+    "@typescript-eslint/parser": "^5.28.0",
+    "eslint": "^8.18.0",
+    "ts-node": "^10.8.1",
+    "tsconfig-paths": "^4.0.0",
+    "tsup": "^6.1.2",
+    "typescript": "^4.7.4"
+  }
 }
