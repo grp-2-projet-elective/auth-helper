@@ -39,17 +39,13 @@ export abstract class AuthMiddleware {
     
     public static async isCustomer(req: Request, res: Response, next: NextFunction) {
         const mail: string = req.body.mail;
-        const role: Roles = req.body.excpectedRole;
+        const excpectedRole = Roles.CUSTOMER;
 
         if (!mail) {
             return res.status(400).send({ message: 'User mail not provided' });
         }
 
-        if (!role) {
-            return res.status(400).send({ message: 'User role not provided' });
-        }
-
-        const isCustomer: boolean = await (req as any).asRole(mail, role);
+        const isCustomer: boolean = await (req as any).asRole(mail, excpectedRole);
 
         if (!isCustomer) {
             return res.status(403).send({ message: 'Invalid role' });
@@ -60,17 +56,13 @@ export abstract class AuthMiddleware {
     
     public static async isRestaurantOwner(req: Request, res: Response, next: NextFunction) {
         const mail: string = req.body.mail;
-        const role: Roles = req.body.excpectedRole;
+        const excpectedRole = Roles.RESTAURANT_OWNER;
 
         if (!mail) {
             return res.status(400).send({ message: 'User mail not provided' });
         }
 
-        if (!role) {
-            return res.status(400).send({ message: 'User role not provided' });
-        }
-
-        const isRestaurantOwner: boolean = await (req as any).asRole(mail, role);
+        const isRestaurantOwner: boolean = await (req as any).asRole(mail, excpectedRole);
 
         if (!isRestaurantOwner) {
             return res.status(403).send({ message: 'Invalid role' });
@@ -81,17 +73,13 @@ export abstract class AuthMiddleware {
 
     public static async isDeliveryMan(req: Request, res: Response, next: NextFunction) {
         const mail: string = req.body.mail;
-        const role: Roles = req.body.excpectedRole;
+        const excpectedRole = Roles.DELIVERY_MAN;
 
         if (!mail) {
             return res.status(400).send({ message: 'User mail not provided' });
         }
 
-        if (!role) {
-            return res.status(400).send({ message: 'User role not provided' });
-        }
-
-        const isDeliveryMan: boolean = await (req as any).asRole(mail, role);
+        const isDeliveryMan: boolean = await (req as any).asRole(mail, excpectedRole);
 
         if (!isDeliveryMan) {
             return res.status(403).send({ message: 'Invalid role' });
@@ -102,17 +90,13 @@ export abstract class AuthMiddleware {
     
     public static async isTechnicalDepartment(req: Request, res: Response, next: NextFunction) {
         const mail: string = req.body.mail;
-        const role: Roles = req.body.excpectedRole;
+        const excpectedRole = Roles.TECHNICAL_DEPARTMENT;
 
         if (!mail) {
             return res.status(400).send({ message: 'User mail not provided' });
         }
 
-        if (!role) {
-            return res.status(400).send({ message: 'User role not provided' });
-        }
-
-        const isTechnicalDepartment: boolean = await (req as any).asRole(mail, role);
+        const isTechnicalDepartment: boolean = await (req as any).asRole(mail, excpectedRole);
 
         if (!isTechnicalDepartment) {
             return res.status(403).send({ message: 'Invalid role' });
@@ -123,17 +107,13 @@ export abstract class AuthMiddleware {
     
     public static async isCommercialDepartment(req: Request, res: Response, next: NextFunction) {
         const mail: string = req.body.mail;
-        const role: Roles = req.body.excpectedRole;
+        const excpectedRole = Roles.TECHNICAL_DEPARTMENT;
 
         if (!mail) {
             return res.status(400).send({ message: 'User mail not provided' });
         }
 
-        if (!role) {
-            return res.status(400).send({ message: 'User role not provided' });
-        }
-
-        const isCommercialDepartment: boolean = await (req as any).asRole(mail, role);
+        const isCommercialDepartment: boolean = await (req as any).asRole(mail, excpectedRole);
 
         if (!isCommercialDepartment) {
             return res.status(403).send({ message: 'Invalid role' });
