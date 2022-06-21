@@ -38,13 +38,18 @@ export abstract class AuthMiddleware {
 
     
     public static async isCustomer(req: Request, res: Response, next: NextFunction) {
-        const role: Roles = req.body.role;
+        const mail: string = req.body.mail;
+        const role: Roles = req.body.excpectedRole;
+
+        if (!mail) {
+            return res.status(400).send({ message: 'User mail not provided' });
+        }
 
         if (!role) {
             return res.status(400).send({ message: 'User role not provided' });
         }
 
-        const isCustomer: boolean = await (req as any).asRole(role);
+        const isCustomer: boolean = await (req as any).asRole(mail, role);
 
         if (!isCustomer) {
             return res.status(403).send({ message: 'Invalid role' });
@@ -54,13 +59,18 @@ export abstract class AuthMiddleware {
     }
     
     public static async isRestaurantOwner(req: Request, res: Response, next: NextFunction) {
-        const role: Roles = req.body.role;
+        const mail: string = req.body.mail;
+        const role: Roles = req.body.excpectedRole;
+
+        if (!mail) {
+            return res.status(400).send({ message: 'User mail not provided' });
+        }
 
         if (!role) {
             return res.status(400).send({ message: 'User role not provided' });
         }
 
-        const isRestaurantOwner: boolean = await (req as any).asRole(role);
+        const isRestaurantOwner: boolean = await (req as any).asRole(mail, role);
 
         if (!isRestaurantOwner) {
             return res.status(403).send({ message: 'Invalid role' });
@@ -70,13 +80,18 @@ export abstract class AuthMiddleware {
     }
 
     public static async isDeliveryMan(req: Request, res: Response, next: NextFunction) {
-        const role: Roles = req.body.role;
+        const mail: string = req.body.mail;
+        const role: Roles = req.body.excpectedRole;
+
+        if (!mail) {
+            return res.status(400).send({ message: 'User mail not provided' });
+        }
 
         if (!role) {
             return res.status(400).send({ message: 'User role not provided' });
         }
 
-        const isDeliveryMan: boolean = await (req as any).asRole(role);
+        const isDeliveryMan: boolean = await (req as any).asRole(mail, role);
 
         if (!isDeliveryMan) {
             return res.status(403).send({ message: 'Invalid role' });
@@ -86,13 +101,18 @@ export abstract class AuthMiddleware {
     }
     
     public static async isTechnicalDepartment(req: Request, res: Response, next: NextFunction) {
-        const role: Roles = req.body.role;
+        const mail: string = req.body.mail;
+        const role: Roles = req.body.excpectedRole;
+
+        if (!mail) {
+            return res.status(400).send({ message: 'User mail not provided' });
+        }
 
         if (!role) {
             return res.status(400).send({ message: 'User role not provided' });
         }
 
-        const isTechnicalDepartment: boolean = await (req as any).asRole(role);
+        const isTechnicalDepartment: boolean = await (req as any).asRole(mail, role);
 
         if (!isTechnicalDepartment) {
             return res.status(403).send({ message: 'Invalid role' });
@@ -102,13 +122,18 @@ export abstract class AuthMiddleware {
     }
     
     public static async isCommercialDepartment(req: Request, res: Response, next: NextFunction) {
-        const role: Roles = req.body.role;
+        const mail: string = req.body.mail;
+        const role: Roles = req.body.excpectedRole;
+
+        if (!mail) {
+            return res.status(400).send({ message: 'User mail not provided' });
+        }
 
         if (!role) {
             return res.status(400).send({ message: 'User role not provided' });
         }
 
-        const isCommercialDepartment: boolean = await (req as any).asRole(role);
+        const isCommercialDepartment: boolean = await (req as any).asRole(mail, role);
 
         if (!isCommercialDepartment) {
             return res.status(403).send({ message: 'Invalid role' });
