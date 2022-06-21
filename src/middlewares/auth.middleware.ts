@@ -1,5 +1,6 @@
 import { createHmac } from 'crypto';
 import { NextFunction, Request, Response } from 'express';
+import { Roles } from 'models/user.model';
 
 export abstract class AuthMiddleware {
     public static verifyAccessToken(req: Request, res: Response, next: NextFunction) {
@@ -29,7 +30,88 @@ export abstract class AuthMiddleware {
         const isUserDuplicated: boolean = await (req as any).isUserDuplicated(mail);
 
         if (isUserDuplicated) {
-            return res.status(400).send({ message: 'User already exist' });
+            return res.status(400).send({ message: 'User already exists' });
+        }
+
+        return next();
+    }
+
+    
+    public static async isCustomer(req: Request, res: Response, next: NextFunction) {
+        const role: Roles = req.body.role;
+
+        if (!role) {
+            return res.status(400).send({ message: 'User role not provided' });
+        }
+
+        const isCustomer: boolean = await (req as any).asRole(role);
+
+        if (!isCustomer) {
+            return res.status(403).send({ message: 'Invalid role' });
+        }
+
+        return next();
+    }
+    
+    public static async isRestaurantOwner(req: Request, res: Response, next: NextFunction) {
+        const role: Roles = req.body.role;
+
+        if (!role) {
+            return res.status(400).send({ message: 'User role not provided' });
+        }
+
+        const isRestaurantOwner: boolean = await (req as any).asRole(role);
+
+        if (!isRestaurantOwner) {
+            return res.status(403).send({ message: 'Invalid role' });
+        }
+
+        return next();
+    }
+
+    public static async isDeliveryMan(req: Request, res: Response, next: NextFunction) {
+        const role: Roles = req.body.role;
+
+        if (!role) {
+            return res.status(400).send({ message: 'User role not provided' });
+        }
+
+        const isDeliveryMan: boolean = await (req as any).asRole(role);
+
+        if (!isDeliveryMan) {
+            return res.status(403).send({ message: 'Invalid role' });
+        }
+
+        return next();
+    }
+    
+    public static async isTechnicalDepartment(req: Request, res: Response, next: NextFunction) {
+        const role: Roles = req.body.role;
+
+        if (!role) {
+            return res.status(400).send({ message: 'User role not provided' });
+        }
+
+        const isTechnicalDepartment: boolean = await (req as any).asRole(role);
+
+        if (!isTechnicalDepartment) {
+            return res.status(403).send({ message: 'Invalid role' });
+        }
+
+        return next();
+    }
+    
+    public static async isCommercialDepartment(req: Request, res: Response, next: NextFunction) {
+        const role: Roles = req.body.role;
+
+        if (!role) {
+            return res.status(400).send({ message: 'User role not provided' });
+        }
+
+        const isCommercialDepartment: boolean = await (req as any).asRole(role);
+
+        if (!isCommercialDepartment) {
+            return res.status(403).send({ message: 'Invalid role' });
         }
 
         return next();
