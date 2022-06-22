@@ -25,6 +25,8 @@ export abstract class AuthMiddleware {
 
             const mail: string = req.body.mail;
 
+            console.log(mail)
+
             if (!mail) {
                 return res.status(400).send({ message: 'User mail not provided' });
             }
