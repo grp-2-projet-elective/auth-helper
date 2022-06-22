@@ -19,24 +19,32 @@ export abstract class AuthMiddleware {
 
         return next();
     }
-    
+
     public static async verifyUserDucplication(req: Request, res: Response, next: NextFunction) {
-        const mail: string = req.body.mail;
+        try {
 
-        if (!mail) {
-            return res.status(400).send({ message: 'User mail not provided' });
+            const mail: string = req.body.mail;
+
+            if (!mail) {
+                return res.status(400).send({ message: 'User mail not provided' });
+            }
+
+            const isUserDuplicated: boolean = await (req as any).isUserDuplicated(mail);
+
+            if (isUserDuplicated) {
+                return res.status(400).send({ message: 'User already exists' });
+            }
+
+            return next();
+        } catch (e: any) {
+            console.error(e);
+            return res
+                .status(e.status ? e.status : 500)
+                .json(e);
         }
-
-        const isUserDuplicated: boolean = await (req as any).isUserDuplicated(mail);
-
-        if (isUserDuplicated) {
-            return res.status(400).send({ message: 'User already exists' });
-        }
-
-        return next();
     }
 
-    
+
     public static async isCustomer(req: Request, res: Response, next: NextFunction) {
         const mail: string = req.body.mail;
         const excpectedRole = Roles.CUSTOMER;
@@ -53,7 +61,7 @@ export abstract class AuthMiddleware {
 
         return next();
     }
-    
+
     public static async isRestaurantOwner(req: Request, res: Response, next: NextFunction) {
         const mail: string = req.body.mail;
         const excpectedRole = Roles.RESTAURANT_OWNER;
@@ -87,7 +95,7 @@ export abstract class AuthMiddleware {
 
         return next();
     }
-    
+
     public static async isTechnicalDepartment(req: Request, res: Response, next: NextFunction) {
         const mail: string = req.body.mail;
         const excpectedRole = Roles.TECHNICAL_DEPARTMENT;
@@ -104,7 +112,7 @@ export abstract class AuthMiddleware {
 
         return next();
     }
-    
+
     public static async isCommercialDepartment(req: Request, res: Response, next: NextFunction) {
         const mail: string = req.body.mail;
         const excpectedRole = Roles.TECHNICAL_DEPARTMENT;
