@@ -30,6 +30,7 @@ export abstract class AuthMiddleware {
             }
 
             const isUserDuplicated: boolean = await (req as any).isUserDuplicated(mail);
+            console.log(isUserDuplicated)
 
             if (isUserDuplicated) {
                 return res.status(400).send({ message: 'User already exists' });
