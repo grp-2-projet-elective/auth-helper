@@ -2,11 +2,11 @@
   "name": "@grp-2-projet-elective/auth-helper",
   "version": "0.1.41",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.js",
   "type": "module",
   "files": [
-    "dist"
+    "./dist"
   ],
   "scripts": {
     "lint": "eslint . --ext .ts",
