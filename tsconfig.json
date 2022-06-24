@@ -26,9 +26,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": [
-      "es2020"
+      "esnext"
     ],
-    "target": "es2015",
+    "target": "es2017",
     // Output Formatting
     "pretty": true,
     // Completeness
