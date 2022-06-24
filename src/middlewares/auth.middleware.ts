@@ -89,7 +89,7 @@ export default abstract class AuthMiddleware {
         return next();
     }
 
-    private static async getTokenPayload(accessToken: string): Promise<jwt.JwtPayload> {
+    public static async getTokenPayload(accessToken: string): Promise<jwt.JwtPayload> {
         const decodedToken: jwt.Jwt = jwt.decode(accessToken, {
             complete: true,
             json: true
