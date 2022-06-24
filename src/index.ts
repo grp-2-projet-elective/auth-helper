@@ -1,5 +1,3 @@
 
-import { AuthMiddleware } from './middlewares/auth.middleware';
-import { Tokens } from './models/auth.model';
-
-export { AuthMiddleware, Tokens };
+export * from './middlewares/auth.middleware';
+export * from './models/auth.model';
