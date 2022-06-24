@@ -11,14 +11,14 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     // Emit
-    "outDir": "./",
+    "outDir": "dist/auth-helper",
     "declaration": true,
     "importHelpers": true,
     "inlineSources": false,
     "noEmitHelpers": true,
     "preserveConstEnums": true,
     "removeComments": false,
-    "sourceMap": false,
+    "sourceMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     // Language and Environment

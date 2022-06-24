@@ -6,7 +6,7 @@
   "types": "dist/auth-helper/index.d.js",
   "type": "module",
   "files": [
-    "dist/auth-helper/"
+    "dist/auth-helper"
   ],
   "scripts": {
     "lint": "eslint . --ext .ts",
