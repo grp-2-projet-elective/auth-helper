@@ -14,8 +14,8 @@
     "prebuild": "if exist \"dist\\auth-helper\\\" rmdir /s /q \"dist\\auth-helper\"",
     "build": "tsc",
     "patch-version": "npm version patch && npm run build",
-    "prepublish": "npm run build",
-    "publish": "npm publish"
+    "prepublish-pkg": "npm run build",
+    "publish-pkg": "npm publish"
   },
   "repository": {
     "type": "git",
