@@ -1,52 +1,34 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": ".", /* Base directory to resolve non-absolute module names. */
-    // if true: conflicts with discord-api-types
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strict": true,
-    // Modules
+    "baseUrl": ".",
+    "target": "es2017",
     "module": "CommonJS",
+    "lib": [
+      "esnext"
+    ],
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    // Emit
-    "outDir": "dist",
-    "declaration": true,
-    "importHelpers": true,
-    "inlineSources": false,
-    "noEmitHelpers": true,
-    "preserveConstEnums": true,
-    "removeComments": false,
-    "sourceMap": false,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    // Language and Environment
+    "strict": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "skipDefaultLibCheck": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": [
-      "es2021"
-    ],
-    "target": "es2021",
-    // Output Formatting
-    "pretty": true,
-    // Completeness
-    "skipLibCheck": false,
-    "skipDefaultLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./dist",
+    "strictPropertyInitialization": false,
     "paths": {
       "*": [
         "./src/*"
       ],
       "./*": [
         "./*"
-      ],
+      ]
     }
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  }
 }
