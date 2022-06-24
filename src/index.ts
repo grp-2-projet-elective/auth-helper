@@ -1,3 +1,5 @@
 
-export * from './middlewares/auth.middleware';
-export * from './models/auth.model';
+import * as AuthMiddleware from './middlewares/auth.middleware';
+import * as AuthModels from './models/auth.model';
+
+export default { AuthMiddleware, AuthModels }
