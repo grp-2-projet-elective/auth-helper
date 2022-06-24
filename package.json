@@ -11,9 +11,9 @@
   "scripts": {
     "lint": "eslint . --ext .ts",
     "test": "",
-    "patch-version": "npm version patch",
-    "prebuild": "npm run patch-version && if exist \"dist\\auth-helper\\\" rmdir /s /q \"dist\\auth-helper\"",
+    "prebuild": "if exist \"dist\\auth-helper\\\" rmdir /s /q \"dist\\auth-helper\"",
     "build": "tsc",
+    "patch-version": "npm version patch && npm run build",
     "prepublish": "npm run build",
     "publish": "npm publish"
   },
