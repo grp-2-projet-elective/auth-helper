@@ -26,7 +26,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": [
-      "esnext"
+      "es2016"
     ],
     "target": "es2016",
     // Output Formatting
