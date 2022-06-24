@@ -5,9 +5,9 @@
     // if true: conflicts with discord-api-types
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "strict": false,
+    "strict": true,
     // Modules
-    "module": "commonjs",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     // Emit
@@ -26,9 +26,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": [
-      "es2016"
+      "esnext"
     ],
-    "target": "es2016",
+    "target": "es2017",
     // Output Formatting
     "pretty": true,
     // Completeness
