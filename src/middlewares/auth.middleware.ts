@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { Roles } from 'models/user.model';
 
-export default abstract class AuthMiddleware {
+export abstract class AuthMiddleware {
     public static async verifyAccessToken(req: Request, res: Response, next: NextFunction) {
         if ((req as any).skipMiddlewares) {
             return next();

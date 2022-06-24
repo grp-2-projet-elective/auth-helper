@@ -1,5 +1,5 @@
 
-export default interface Tokens {
+export interface Tokens {
     accessToken: string;
     refreshToken: string;
 }
