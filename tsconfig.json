@@ -28,7 +28,7 @@
     "lib": [
       "es2020"
     ],
-    "target": "esnext",
+    "target": "es2015",
     // Output Formatting
     "pretty": true,
     // Completeness
