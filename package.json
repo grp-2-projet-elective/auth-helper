@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/auth-helper/index.js",
   "types": "dist/auth-helper/index.d.js",
-  "type": "module",
+  "type": "commonjs",
   "files": [
     "dist/auth-helper"
   ],
