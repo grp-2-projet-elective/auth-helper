@@ -7,7 +7,7 @@
     "noUnusedParameters": true,
     "strict": false,
     // Modules
-    "module": "CommonJS",
+    "module": "commonjs",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     // Emit
@@ -20,7 +20,7 @@
     "removeComments": false,
     "sourceMap": false,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    // "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     // Language and Environment
     "emitDecoratorMetadata": true,
