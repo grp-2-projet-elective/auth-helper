@@ -19,8 +19,8 @@
     "preserveConstEnums": true,
     "removeComments": false,
     "sourceMap": false,
-    "esModuleInterop": true,
-    // "allowSyntheticDefaultImports": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     // Language and Environment
     "emitDecoratorMetadata": true,
