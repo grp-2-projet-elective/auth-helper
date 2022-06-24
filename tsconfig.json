@@ -33,6 +33,14 @@
     // Completeness
     "skipLibCheck": false,
     "skipDefaultLibCheck": true,
+    "paths": {
+      "*": [
+        "./src/*"
+      ],
+      "./*": [
+        "./*"
+      ],
+    }
   },
   "include": [
     "src/**/*"
