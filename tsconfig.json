@@ -1,26 +1,21 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "src", /* Base directory to resolve non-absolute module names. */
-    // if true: conflicts with discord-api-types
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strict": false,
+    "baseUrl": "./", /* Base directory to resolve non-absolute module names. */
+    "strict": true,
     // Modules
     "module": "CommonJS",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     // Emit
-    "outDir": "./dist",
+    "outDir": "dist",
     "declaration": true,
-    "importHelpers": true,
     "inlineSources": false,
-    "noEmitHelpers": true,
     "preserveConstEnums": true,
-    "removeComments": false,
-    "sourceMap": false,
+    "sourceMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
     // Language and Environment
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -32,7 +27,7 @@
     "pretty": true,
     // Completeness
     "skipLibCheck": false,
-    "skipDefaultLibCheck": true,
+    "skipDefaultLibCheck": true
   },
   "include": [
     "src/**/*"
