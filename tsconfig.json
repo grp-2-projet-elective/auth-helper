@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./src", /* Base directory to resolve non-absolute module names. */
+    "baseUrl": ".", /* Base directory to resolve non-absolute module names. */
     // if true: conflicts with discord-api-types
     "noUnusedLocals": true,
     "noUnusedParameters": true,
