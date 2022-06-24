@@ -1,135 +1,101 @@
-import { createHmac } from 'crypto';
 import { NextFunction, Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
 import { Roles } from 'models/user.model';
 
 export abstract class AuthMiddleware {
-    public static verifyAccessToken(req: Request, res: Response, next: NextFunction) {
+    public static async verifyAccessToken(req: Request, res: Response, next: NextFunction) {
+        if ((req as any).skipMiddlewares) {
+            return next();
+        }
+
         const accessToken: string = req.headers['x-access-token'] as string;
 
         if (!accessToken) {
             return res.status(403).send({ message: 'Auth token not provided' });
         }
 
-        const validHashedToken = createHmac('sha256', process.env.TOKEN_SECRET as string).update(process.env.ACCESS_TOKEN as string).digest('hex');
-        const hashedToken = createHmac('sha256', process.env.TOKEN_SECRET as string).update(accessToken).digest('hex');
+        const isVerifiedToken = await jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET as string);
 
-        if (hashedToken !== validHashedToken) {
+        if (!isVerifiedToken) {
             return res.status(403).send({ message: 'Auth token invalid' });
         }
 
         return next();
     }
 
-    public static async verifyUserDucplication(req: Request, res: Response, next: NextFunction) {
-        try {
 
-            const mail: string = req.body.mail;
-
-            console.log(mail)
-
-            if (!mail) {
-                return res.status(400).send({ message: 'User mail not provided' });
-            }
-
-            const isUserDuplicated: boolean = await (req as any).isUserDuplicated(mail);
-            console.log(isUserDuplicated)
-
-            if (isUserDuplicated) {
-                return res.status(400).send({ message: 'User already exists' });
-            }
-
-            return next();
-        } catch (e: any) {
-            console.error(e);
-            return res
-                .status(e.status ? e.status : 500)
-                .json(e);
-        }
-    }
-
-
-    public static async isCustomer(req: Request, res: Response, next: NextFunction) {
-        const mail: string = req.body.mail;
+    public static async hasCustomerRole(req: Request, res: Response, next: NextFunction) {
+        const accessToken: string = req.headers['x-access-token'] as string;
         const excpectedRole = Roles.CUSTOMER;
 
-        if (!mail) {
-            return res.status(400).send({ message: 'User mail not provided' });
-        }
+        const tokenPayload = await AuthMiddleware.getTokenPayload(accessToken);
 
-        const isCustomer: boolean = await (req as any).asRole(mail, excpectedRole);
-
-        if (!isCustomer) {
+        if (tokenPayload?.role !== excpectedRole) {
             return res.status(403).send({ message: 'Invalid role' });
         }
 
         return next();
     }
 
-    public static async isRestaurantOwner(req: Request, res: Response, next: NextFunction) {
-        const mail: string = req.body.mail;
+    public static async hasRestaurantOwnerRole(req: Request, res: Response, next: NextFunction) {
+        const accessToken: string = req.headers['x-access-token'] as string;
         const excpectedRole = Roles.RESTAURANT_OWNER;
 
-        if (!mail) {
-            return res.status(400).send({ message: 'User mail not provided' });
-        }
+        const tokenPayload = await AuthMiddleware.getTokenPayload(accessToken);
 
-        const isRestaurantOwner: boolean = await (req as any).asRole(mail, excpectedRole);
-
-        if (!isRestaurantOwner) {
+        if (tokenPayload?.role !== excpectedRole) {
             return res.status(403).send({ message: 'Invalid role' });
         }
 
         return next();
     }
 
-    public static async isDeliveryMan(req: Request, res: Response, next: NextFunction) {
-        const mail: string = req.body.mail;
+    public static async hasDeliveryManRole(req: Request, res: Response, next: NextFunction) {
+        const accessToken: string = req.headers['x-access-token'] as string;
         const excpectedRole = Roles.DELIVERY_MAN;
 
-        if (!mail) {
-            return res.status(400).send({ message: 'User mail not provided' });
-        }
+        const tokenPayload = await AuthMiddleware.getTokenPayload(accessToken);
 
-        const isDeliveryMan: boolean = await (req as any).asRole(mail, excpectedRole);
-
-        if (!isDeliveryMan) {
+        if (tokenPayload?.role !== excpectedRole) {
             return res.status(403).send({ message: 'Invalid role' });
         }
 
         return next();
     }
 
-    public static async isTechnicalDepartment(req: Request, res: Response, next: NextFunction) {
-        const mail: string = req.body.mail;
+    public static async hasTechnicalDepartmentRole(req: Request, res: Response, next: NextFunction) {
+        const accessToken: string = req.headers['x-access-token'] as string;
         const excpectedRole = Roles.TECHNICAL_DEPARTMENT;
 
-        if (!mail) {
-            return res.status(400).send({ message: 'User mail not provided' });
-        }
+        const tokenPayload = await AuthMiddleware.getTokenPayload(accessToken);
 
-        const isTechnicalDepartment: boolean = await (req as any).asRole(mail, excpectedRole);
-
-        if (!isTechnicalDepartment) {
+        if (tokenPayload?.role !== excpectedRole) {
             return res.status(403).send({ message: 'Invalid role' });
         }
 
         return next();
     }
 
-    public static async isCommercialDepartment(req: Request, res: Response, next: NextFunction) {
-        const mail: string = req.body.mail;
-        const excpectedRole = Roles.TECHNICAL_DEPARTMENT;
+    public static async hasCommercialDepartmentRole(req: Request, res: Response, next: NextFunction) {
+        const accessToken: string = req.headers['x-access-token'] as string;
+        const excpectedRole = Roles.COMERCIAL_DEPARTMENT;
 
-        if (!mail) {
-            return res.status(400).send({ message: 'User mail not provided' });
-        }
+        const tokenPayload = await AuthMiddleware.getTokenPayload(accessToken);
 
-        const isCommercialDepartment: boolean = await (req as any).asRole(mail, excpectedRole);
-
-        if (!isCommercialDepartment) {
+        if (tokenPayload?.role !== excpectedRole) {
             return res.status(403).send({ message: 'Invalid role' });
         }
 
         return next();
+    }
+
+    private static async getTokenPayload(accessToken: string): Promise<jwt.JwtPayload> {
+        const decodedToken: jwt.Jwt = jwt.decode(accessToken, {
+            complete: true,
+            json: true
+        }) as jwt.Jwt;
+
+        const tokenPayload = decodedToken?.payload as jwt.JwtPayload;
+        return tokenPayload;
     }
 }

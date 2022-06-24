@@ -1,13 +1,17 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": ".",
-    "target": "es2020",
+    "baseUrl": "./src", /* Base directory to resolve non-absolute module names. */
+    // if true: conflicts with discord-api-types
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": false,
+    // Modules
     "module": "CommonJS",
-    "lib": [
-      "esnext"
-    ],
     "moduleResolution": "node",
-    "outDir": "dist",
+    "resolveJsonModule": true,
+    // Emit
+    "outDir": "dist/auth-helper",
     "declaration": true,
     "importHelpers": true,
     "inlineSources": false,
@@ -17,33 +21,23 @@
     "sourceMap": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": false,
-    "skipDefaultLibCheck": true,
+    // Language and Environment
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "strictPropertyInitialization": false,
-    "paths": {
-      "*": [
-        "./src/*"
-      ],
-      "./*": [
-        "./*"
-      ]
-    }
+    "lib": [
+      "es2020"
+    ],
+    "target": "esnext",
+    // Output Formatting
+    "pretty": true,
+    // Completeness
+    "skipLibCheck": false,
+    "skipDefaultLibCheck": true,
   },
   "include": [
-    "./src/**/*",
-    "./src/**/*.json"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules"
-  ],
-  "ts-node": {
-    "require": [
-      "tsconfig-paths/register"
-    ]
-  }
+  ]
 }
