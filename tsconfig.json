@@ -11,7 +11,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     // Emit
-    "outDir": "dist/auth-helper",
+    "outDir": "dist",
     "declaration": true,
     "importHelpers": true,
     "inlineSources": false,

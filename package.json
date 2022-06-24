@@ -2,16 +2,16 @@
   "name": "@grp-2-projet-elective/auth-helper",
   "version": "0.1.35",
   "description": "",
-  "main": "dist/auth-helper/index.js",
-  "types": "dist/auth-helper/index.d.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.js",
   "type": "commonjs",
   "files": [
-    "dist/auth-helper"
+    "dist"
   ],
   "scripts": {
     "lint": "eslint . --ext .ts",
     "test": "",
-    "prebuild": "if exist \"dist\\auth-helper\\\" rmdir /s /q \"dist\\auth-helper\"",
+    "prebuild": "if exist \"dist\" rmdir /s /q \"dist\"",
     "build": "tsc",
     "patch-version": "npm version patch",
     "postpatch-version": "npm run build",
