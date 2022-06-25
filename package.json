@@ -1,6 +1,6 @@
 {
   "name": "@grp-2-projet-elective/auth-helper",
-  "version": "0.1.60",
+  "version": "0.1.61",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
