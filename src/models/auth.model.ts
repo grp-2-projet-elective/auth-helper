@@ -1,10 +1,10 @@
 
-export interface Tokens {
+interface Tokens {
     accessToken: string;
     refreshToken: string;
 }
 
-export enum Roles {
+enum Roles {
     CUSTOMER = 1,
     RESTAURANT_OWNER = 2,
     DELIVERY_MAN = 3,
@@ -12,3 +12,5 @@ export enum Roles {
     COMERCIAL_DEPARTMENT = 4,
     EXTERNAL = 6
 }
+
+export { Tokens, Roles}
