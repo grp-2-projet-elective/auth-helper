@@ -2,8 +2,8 @@
   "name": "@grp-2-projet-elective/auth-helper",
   "version": "0.1.74",
   "description": "",
-  "main": "./lib/src/index.js",
-  "types": "./lib/src/index.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "files": [
     "lib/**/*"
   ],
