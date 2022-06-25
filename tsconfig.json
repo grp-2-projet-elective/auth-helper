@@ -1,38 +1,35 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./", /* Base directory to resolve non-absolute module names. */
-    "strict": true,
-    // Modules
+    "baseUrl": ".",
+    "target": "es2017",
     "module": "CommonJS",
+    "lib": [
+      "esnext"
+    ],
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    // Emit
-    "outDir": "dist",
-    "declaration": true,
-    "inlineSources": false,
-    "preserveConstEnums": true,
-    "sourceMap": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
-    // Language and Environment
+    "strict": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "skipDefaultLibCheck": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": [
-      "es2020"
-    ],
-    "target": "esnext",
-    // Output Formatting
-    "pretty": true,
-    // Completeness
-    "skipLibCheck": false,
-    "skipDefaultLibCheck": true
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "outDir": "./dist",
+    "strictPropertyInitialization": false,
+    "paths": {
+      "*": [
+        "./src/*"
+      ],
+      "./*": [
+        "./*"
+      ]
+    }
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  }
 }
