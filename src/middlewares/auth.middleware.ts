@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { Roles } from '../models/auth.model';
+import { Roles } from '../models/users.model';
 
 export abstract class AuthMiddlewares {
   public static verifyAccessToken(
