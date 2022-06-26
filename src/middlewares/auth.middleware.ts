@@ -3,11 +3,11 @@ import jwt from 'jsonwebtoken';
 import { Roles } from '../models/auth.model';
 
 export abstract class AuthMiddlewares {
-  public static async verifyAccessToken(
+  public static verifyAccessToken(
     req: Request,
     res: Response,
     next: NextFunction
-  ) {
+  ): any {
     if ((req as any).skipMiddlewares) {
       return next();
     }
@@ -18,7 +18,7 @@ export abstract class AuthMiddlewares {
       return res.status(403).send({ message: 'Auth token not provided' });
     }
 
-    const isVerifiedToken = await jwt.verify(
+    const isVerifiedToken = jwt.verify(
       accessToken,
       process.env.ACCESS_TOKEN_SECRET as string
     );
@@ -27,97 +27,134 @@ export abstract class AuthMiddlewares {
       return res.status(403).send({ message: 'Auth token invalid' });
     }
 
-    return next();
+    next();
   }
 
-  public static async hasCustomerRole(
+  public static verifyProfileOwnership(
     req: Request,
     res: Response,
     next: NextFunction
-  ) {
+  ): any {
+    const accessToken: string = req.headers['x-access-token'] as string;
+    const id = req.body.id;
+
+    const decodedToken = AuthMiddlewares.getTokenPayload(accessToken);
+
+    const isProfileOwner: boolean = id === decodedToken.id;
+
+    if (!isProfileOwner) {
+      return res.status(400).send({ message: 'Unauthorized' });
+    }
+
+    next();
+  }
+
+  public static verifyRestaurantOwnership(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): any {
+    const accessToken: string = req.headers['x-access-token'] as string;
+    const restaurantId = req.body.restaurantId;
+
+    const decodedToken = AuthMiddlewares.getTokenPayload(accessToken);
+
+    const isRestaurantOwner: boolean =
+      restaurantId === decodedToken.restaurantId;
+
+    if (!isRestaurantOwner) {
+      return res.status(400).send({ message: 'Unauthorized' });
+    }
+
+    next();
+  }
+
+  public static hasCustomerRole(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): any {
     const accessToken: string = req.headers['x-access-token'] as string;
     const excpectedRole = Roles.CUSTOMER;
 
-    const tokenPayload = await AuthMiddlewares.getTokenPayload(accessToken);
+    const tokenPayload = AuthMiddlewares.getTokenPayload(accessToken);
 
     if (tokenPayload?.role !== excpectedRole) {
       return res.status(403).send({ message: 'Invalid role' });
     }
 
-    return next();
+    next();
   }
 
-  public static async hasRestaurantOwnerRole(
+  public static hasRestaurantOwnerRole(
     req: Request,
     res: Response,
     next: NextFunction
-  ) {
+  ): any {
     const accessToken: string = req.headers['x-access-token'] as string;
     const excpectedRole = Roles.RESTAURANT_OWNER;
 
-    const tokenPayload = await AuthMiddlewares.getTokenPayload(accessToken);
+    const tokenPayload = AuthMiddlewares.getTokenPayload(accessToken);
 
     if (tokenPayload?.role !== excpectedRole) {
       return res.status(403).send({ message: 'Invalid role' });
     }
 
-    return next();
+    next();
   }
 
-  public static async hasDeliveryManRole(
+  public static hasDeliveryManRole(
     req: Request,
     res: Response,
     next: NextFunction
-  ) {
+  ): any {
     const accessToken: string = req.headers['x-access-token'] as string;
     const excpectedRole = Roles.DELIVERY_MAN;
 
-    const tokenPayload = await AuthMiddlewares.getTokenPayload(accessToken);
+    const tokenPayload = AuthMiddlewares.getTokenPayload(accessToken);
 
     if (tokenPayload?.role !== excpectedRole) {
       return res.status(403).send({ message: 'Invalid role' });
     }
 
-    return next();
+    next();
   }
 
-  public static async hasTechnicalDepartmentRole(
+  public static hasTechnicalDepartmentRole(
     req: Request,
     res: Response,
     next: NextFunction
-  ) {
+  ): any {
     const accessToken: string = req.headers['x-access-token'] as string;
     const excpectedRole = Roles.TECHNICAL_DEPARTMENT;
 
-    const tokenPayload = await AuthMiddlewares.getTokenPayload(accessToken);
+    const tokenPayload = AuthMiddlewares.getTokenPayload(accessToken);
 
     if (tokenPayload?.role !== excpectedRole) {
       return res.status(403).send({ message: 'Invalid role' });
     }
 
-    return next();
+    next();
   }
 
-  public static async hasCommercialDepartmentRole(
+  public static hasCommercialDepartmentRole(
     req: Request,
     res: Response,
     next: NextFunction
-  ) {
+  ): any {
     const accessToken: string = req.headers['x-access-token'] as string;
     const excpectedRole = Roles.COMERCIAL_DEPARTMENT;
 
-    const tokenPayload = await AuthMiddlewares.getTokenPayload(accessToken);
+    const tokenPayload = AuthMiddlewares.getTokenPayload(accessToken);
 
     if (tokenPayload?.role !== excpectedRole) {
       return res.status(403).send({ message: 'Invalid role' });
     }
 
-    return next();
+    next();
   }
 
-  public static async getTokenPayload(
-    accessToken: string
-  ): Promise<jwt.JwtPayload> {
+  public static getTokenPayload(accessToken: string): jwt.JwtPayload {
     const decodedToken: jwt.Jwt = jwt.decode(accessToken, {
       complete: true,
       json: true,
