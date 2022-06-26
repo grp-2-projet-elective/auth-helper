@@ -1,5 +1,5 @@
 {
-  "name": "@grp-2-projet-elective/auth-helper",
+  "name": "@grp-2-projet-elective/cesieats-helpers",
   "version": "0.2.0",
   "description": "",
   "main": "./lib/index.js",
@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/grp-2-projet-elective/auth-helper.git"
+    "url": "git+https://github.com/grp-2-projet-elective/cesieats-helpers.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -38,9 +38,9 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/grp-2-projet-elective/auth-helper/issues"
+    "url": "https://github.com/grp-2-projet-elective/cesieats-helpers/issues"
   },
-  "homepage": "https://github.com/grp-2-projet-elective/auth-helper#readme",
+  "homepage": "https://github.com/grp-2-projet-elective/cesieats-helpers#readme",
   "engines": {
     "node": ">=12.0"
   },
