@@ -36,11 +36,11 @@ export abstract class AuthMiddlewares {
     next: NextFunction
   ): any {
     const accessToken: string = req.headers['x-access-token'] as string;
-    const id = req.body.id;
+    const id = Number(req.body.id);
 
     const decodedToken = AuthMiddlewares.getTokenPayload(accessToken);
 
-    const isProfileOwner: boolean = id === decodedToken.id;
+    const isProfileOwner: boolean = id === Number(decodedToken.id);
 
     if (!isProfileOwner) {
       return res.status(400).send({ message: 'Unauthorized' });
@@ -55,12 +55,12 @@ export abstract class AuthMiddlewares {
     next: NextFunction
   ): any {
     const accessToken: string = req.headers['x-access-token'] as string;
-    const restaurantId = req.body.restaurantId;
+    const restaurantId: string = req.body.restaurantId;
 
     const decodedToken = AuthMiddlewares.getTokenPayload(accessToken);
 
     const isRestaurantOwner: boolean =
-      restaurantId === decodedToken.restaurantId;
+      restaurantId === String(decodedToken.restaurantId);
 
     if (!isRestaurantOwner) {
       return res.status(400).send({ message: 'Unauthorized' });

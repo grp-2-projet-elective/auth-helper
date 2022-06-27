@@ -10,5 +10,5 @@ export interface TokenData {
   mail: string;
   role: Roles;
 
-  restaurantId?: number;
+  restaurantId?: string;
 }
