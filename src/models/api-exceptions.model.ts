@@ -1,4 +1,4 @@
-export interface ApiException {
+export interface IApiException {
     error: any;
     status: number;
 }
