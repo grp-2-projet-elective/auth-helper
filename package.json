@@ -33,7 +33,8 @@
     "url": "git+https://github.com/grp-2-projet-elective/cesieats-helpers.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
   },
   "author": "",
   "license": "MIT",
