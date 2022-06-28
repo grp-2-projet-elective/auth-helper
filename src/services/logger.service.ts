@@ -2,9 +2,12 @@ import { appendFileSync } from "fs";
 import { ILogObject, ISettingsParam, Logger } from "tslog";
 
 export class LoggerService {
+
+    private static _instance: LoggerService;
+
     private logger: Logger;
 
-    constructor(private readonly outputPath: string, private readonly settings?: ISettingsParam) {
+    private constructor(private readonly outputPath: string, private readonly settings?: ISettingsParam) {
         const loggerSettings = {
             displayLoggerName: true,
             name: 'Logger service',
@@ -14,6 +17,10 @@ export class LoggerService {
 
         this.logger = new Logger(loggerSettings);
         this.attachTransport();
+    }
+
+    public static Instance(outputPath: string, settings?: ISettingsParam) {
+        return this._instance || (this._instance = new this(outputPath, settings));
     }
 
     private logToTransport(logObject: ILogObject) {
