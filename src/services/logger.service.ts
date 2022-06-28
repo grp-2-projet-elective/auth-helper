@@ -5,20 +5,21 @@ export class LoggerService {
 
     private static _instance: LoggerService;
     private static _outputFilePath: string;
-    private static _loggerSettings?: ISettingsParam
 
     private logger: Logger;
 
     private constructor(outputFilePath?: string, settings?: ISettingsParam) {
         LoggerService._outputFilePath = outputFilePath ? outputFilePath : './logs/logs.txt';
-        LoggerService._loggerSettings = {
-            ...settings,
+        const loggerSettings = {
             displayLoggerName: true,
             name: 'Logger service',
-            overwriteConsole: true
+            overwriteConsole: true,
+            ...settings
         }
 
-        this.logger = new Logger(LoggerService._loggerSettings);
+        console.log(loggerSettings)
+
+        this.logger = new Logger(loggerSettings);
         this.attachTransport();
     }
 
