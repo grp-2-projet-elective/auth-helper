@@ -19,8 +19,9 @@ export class LoggerService {
         this.attachTransport();
     }
 
-    public static Instance(outputPath: string = './logs/log.txt', settings?: ISettingsParam) {
-        return this._instance || (this._instance = new this(outputPath, settings));
+    public static Instance(outputFilePath: string = './logs/log.txt', settings?: ISettingsParam) {
+        console.log(outputFilePath);
+        return this._instance || (this._instance = new this(outputFilePath, settings));
     }
 
     private logToTransport(logObject: ILogObject) {
