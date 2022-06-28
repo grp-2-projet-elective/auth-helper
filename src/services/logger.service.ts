@@ -1,4 +1,5 @@
 import { appendFileSync } from "fs";
+import { resolve } from "path";
 import { ILogObject, ISettingsParam, Logger } from "tslog";
 
 export class LoggerService {
@@ -20,12 +21,12 @@ export class LoggerService {
     }
 
     public static Instance(outputFilePath: string = './logs/log.txt', settings?: ISettingsParam) {
-        console.log(outputFilePath);
         return this._instance || (this._instance = new this(outputFilePath, settings));
     }
 
     private logToTransport(logObject: ILogObject) {
-        appendFileSync(this.outputFilePath as string, JSON.stringify(logObject) + "\n");
+        console.log(this.outputFilePath);
+        appendFileSync(resolve(this.outputFilePath as string), JSON.stringify(logObject) + "\n");
     }
 
     private attachTransport(): void {
