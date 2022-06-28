@@ -8,7 +8,6 @@ export class LoggerService {
     private logger: Logger;
 
     private constructor(private readonly outputFilePath?: string, private readonly settings?: ISettingsParam) {
-        this.outputFilePath = 'logs/log.txt';
         const loggerSettings = {
             displayLoggerName: true,
             name: 'Logger service',
@@ -20,7 +19,7 @@ export class LoggerService {
         this.attachTransport();
     }
 
-    public static Instance(outputPath?: string, settings?: ISettingsParam) {
+    public static Instance(outputPath: string = './logs/log.txt', settings?: ISettingsParam) {
         return this._instance || (this._instance = new this(outputPath, settings));
     }
 
