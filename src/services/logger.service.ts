@@ -1,17 +1,38 @@
-import { ISettingsParam, Logger } from "tslog";
+import { appendFileSync } from "fs";
+import { ILogObject, ISettingsParam, Logger } from "tslog";
 
 export class LoggerService {
     private logger: Logger;
 
-    constructor(private readonly loggerSettings?: ISettingsParam) {
-        loggerSettings = {
+    constructor(private readonly outputPath: string, private readonly settings?: ISettingsParam) {
+        const loggerSettings = {
             displayLoggerName: true,
             name: 'Logger service',
             overwriteConsole: true,
-            ...loggerSettings
+            ...settings
         };
 
         this.logger = new Logger(loggerSettings);
+        this.attachTransport();
+    }
+
+    private logToTransport(logObject: ILogObject) {
+        appendFileSync(`${this.outputPath}/logs.txt`, JSON.stringify(logObject) + "\n");
+    }
+
+    private attachTransport(): void {
+        this.logger.attachTransport(
+            {
+                silly: this.logToTransport,
+                debug: this.logToTransport,
+                trace: this.logToTransport,
+                info: this.logToTransport,
+                warn: this.logToTransport,
+                error: this.logToTransport,
+                fatal: this.logToTransport,
+            },
+            "debug"
+        );
     }
 
     public silly(...args: Array<any>): void {
