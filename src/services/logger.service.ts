@@ -4,32 +4,28 @@ import { ILogObject, ISettingsParam, Logger } from "tslog";
 export class LoggerService {
 
     private static _instance: LoggerService;
-    private static _outputFilePath: string;
+    private _outputFilePath: string;
 
     private logger: Logger;
 
-    private constructor(outputFilePath?: string, settings?: ISettingsParam) {
-        LoggerService._outputFilePath = outputFilePath ? outputFilePath : './logs/logs.txt';
+    private constructor(loggerName: string, outputFilePath: string) {
+        this._outputFilePath = outputFilePath;
         const loggerSettings = {
             displayLoggerName: true,
-            name: 'Logger service',
-            overwriteConsole: true,
-            ...settings
+            name: loggerName,
+            overwriteConsole: true
         }
-
-        console.log(loggerSettings)
 
         this.logger = new Logger(loggerSettings);
         this.attachTransport();
     }
 
-    public static Instance(outputFilePath?: string, settings?: ISettingsParam) {
-        return this._instance || (this._instance = new this(outputFilePath, settings));
+    public static Instance(loggerName: string, outputFilePath: string) {
+        return this._instance || (this._instance = new this(loggerName, outputFilePath));
     }
 
     private logToTransport(logObject: ILogObject) {
-        if (!existsSync(LoggerService._outputFilePath)) openSync(LoggerService._outputFilePath, 'w');
-        appendFileSync(LoggerService._outputFilePath, JSON.stringify(logObject) + "\n");
+        appendFileSync(this._outputFilePath, JSON.stringify(logObject) + "\n");
     }
 
     private attachTransport(): void {
