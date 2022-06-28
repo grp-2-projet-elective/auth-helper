@@ -7,12 +7,16 @@ export class LoggerService {
 
     private logger: Logger;
 
-    private constructor(private readonly outputFilePath: string = 'logs/log.txt', private readonly settings: ISettingsParam = {
-        displayLoggerName: true,
-        name: 'Logger service',
-        overwriteConsole: true
-    }) {
-        this.logger = new Logger(settings);
+    private constructor(private readonly outputFilePath?: string, private readonly settings?: ISettingsParam) {
+        this.outputFilePath = 'logs/log.txt';
+        const loggerSettings = {
+            displayLoggerName: true,
+            name: 'Logger service',
+            overwriteConsole: true,
+            ...this.settings
+        }
+
+        this.logger = new Logger(loggerSettings);
         this.attachTransport();
     }
 
@@ -21,7 +25,7 @@ export class LoggerService {
     }
 
     private logToTransport(logObject: ILogObject) {
-        appendFileSync(this.outputFilePath, JSON.stringify(logObject) + "\n");
+        appendFileSync(this.outputFilePath as string, JSON.stringify(logObject) + "\n");
     }
 
     private attachTransport(): void {
