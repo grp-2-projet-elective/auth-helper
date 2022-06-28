@@ -9,6 +9,8 @@ export class LoggerService {
     private logger: Logger;
 
     private constructor(private readonly outputFilePath?: string, private readonly settings?: ISettingsParam) {
+        this.outputFilePath = outputFilePath ? outputFilePath : './logs/logs.txt';
+        console.log(this.outputFilePath);
         const loggerSettings = {
             displayLoggerName: true,
             name: 'Logger service',
@@ -20,13 +22,13 @@ export class LoggerService {
         this.attachTransport();
     }
 
-    public static Instance(outputFilePath: string = './logs/log.txt', settings?: ISettingsParam) {
+    public static Instance(outputFilePath?: string, settings?: ISettingsParam) {
         return this._instance || (this._instance = new this(outputFilePath, settings));
     }
 
     private logToTransport(logObject: ILogObject) {
         console.log(this.outputFilePath);
-        appendFileSync(resolve(this.outputFilePath as string), JSON.stringify(logObject) + "\n");
+        appendFileSync(this.outputFilePath as string, JSON.stringify(logObject) + "\n");
     }
 
     private attachTransport(): void {
