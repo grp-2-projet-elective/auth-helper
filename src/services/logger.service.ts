@@ -20,7 +20,7 @@ export class LoggerService {
         this.attachTransport();
     }
 
-    public static Instance(outputPath: string, settings?: ISettingsParam) {
+    public static Instance(outputPath?: string, settings?: ISettingsParam) {
         return this._instance || (this._instance = new this(outputPath, settings));
     }
 
