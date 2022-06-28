@@ -7,19 +7,16 @@ export class LoggerService {
 
     private logger: Logger;
 
-    private constructor(private readonly outputPath: string, private readonly settings?: ISettingsParam) {
-        const loggerSettings = {
-            displayLoggerName: true,
-            name: 'Logger service',
-            overwriteConsole: true,
-            ...settings
-        };
-
-        this.logger = new Logger(loggerSettings);
+    private constructor(private readonly outputPath: string = 'logs/log.txt', private readonly settings: ISettingsParam = {
+        displayLoggerName: true,
+        name: 'Logger service',
+        overwriteConsole: true
+    }) {
+        this.logger = new Logger(settings);
         this.attachTransport();
     }
 
-    public static Instance(outputPath: string, settings?: ISettingsParam) {
+    public static Instance(outputPath?: string, settings?: ISettingsParam) {
         return this._instance || (this._instance = new this(outputPath, settings));
     }
 
