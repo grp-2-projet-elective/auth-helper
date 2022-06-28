@@ -7,7 +7,7 @@ export class LoggerService {
 
     private logger: Logger;
 
-    private constructor(private readonly outputPath: string = 'logs/log.txt', private readonly settings: ISettingsParam = {
+    private constructor(private readonly outputFilePath: string = 'logs/log.txt', private readonly settings: ISettingsParam = {
         displayLoggerName: true,
         name: 'Logger service',
         overwriteConsole: true
@@ -16,12 +16,12 @@ export class LoggerService {
         this.attachTransport();
     }
 
-    public static Instance(outputPath?: string, settings?: ISettingsParam) {
+    public static Instance(outputPath: string, settings?: ISettingsParam) {
         return this._instance || (this._instance = new this(outputPath, settings));
     }
 
     private logToTransport(logObject: ILogObject) {
-        appendFileSync(`${this.outputPath}/logs.txt`, JSON.stringify(logObject) + "\n");
+        appendFileSync(this.outputFilePath, JSON.stringify(logObject) + "\n");
     }
 
     private attachTransport(): void {
