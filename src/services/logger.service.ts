@@ -1,5 +1,5 @@
-import { appendFileSync, existsSync, openSync } from "fs";
-import { ILogObject, ISettingsParam, Logger } from "tslog";
+import { appendFileSync, existsSync, mkdirSync } from "fs";
+import { ILogObject, Logger } from "tslog";
 
 export class LoggerService {
 
@@ -8,8 +8,12 @@ export class LoggerService {
 
     private logger: Logger;
 
-    private constructor(loggerName: string, outputFilePath: string) {
-        LoggerService._outputFilePath = outputFilePath;
+    private constructor(loggerName: string, outputPath: string, fileName: string = 'logs.txt') {
+        LoggerService._outputFilePath = `${outputPath}/${fileName}`;
+        if (!existsSync(outputPath)) {
+            mkdirSync(outputPath, '0744');
+        }
+
         const loggerSettings = {
             displayLoggerName: true,
             name: loggerName,
