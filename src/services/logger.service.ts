@@ -4,12 +4,12 @@ import { ILogObject, ISettingsParam, Logger } from "tslog";
 export class LoggerService {
 
     private static _instance: LoggerService;
-    private _outputFilePath: string;
+    private static _outputFilePath: string;
 
     private logger: Logger;
 
     private constructor(loggerName: string, outputFilePath: string) {
-        this._outputFilePath = outputFilePath;
+        LoggerService._outputFilePath = outputFilePath;
         const loggerSettings = {
             displayLoggerName: true,
             name: loggerName,
@@ -25,7 +25,7 @@ export class LoggerService {
     }
 
     private logToTransport(logObject: ILogObject) {
-        appendFileSync(this._outputFilePath, JSON.stringify(logObject) + "\n");
+        appendFileSync(LoggerService._outputFilePath, JSON.stringify(logObject) + "\n");
     }
 
     private attachTransport(): void {
