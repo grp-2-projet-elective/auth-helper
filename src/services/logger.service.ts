@@ -1,4 +1,4 @@
-import { appendFileSync, existsSync } from "fs";
+import { appendFileSync, existsSync, openSync } from "fs";
 import { ILogObject, ISettingsParam, Logger } from "tslog";
 
 export class LoggerService {
@@ -27,7 +27,7 @@ export class LoggerService {
     }
 
     private logToTransport(logObject: ILogObject) {
-        if (!existsSync(LoggerService._outputFilePath)) open(LoggerService._outputFilePath, 'w');
+        if (!existsSync(LoggerService._outputFilePath)) openSync(LoggerService._outputFilePath, 'w');
         appendFileSync(LoggerService._outputFilePath, JSON.stringify(logObject) + "\n");
     }
 
