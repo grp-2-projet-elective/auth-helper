@@ -5,20 +5,21 @@ import { ILogObject, ISettingsParam, Logger } from "tslog";
 export class LoggerService {
 
     private static _instance: LoggerService;
+    private static _outputFilePath: string;
+    private static _loggerSettings?: ISettingsParam
 
     private logger: Logger;
 
-    private constructor(private readonly outputFilePath?: string, private readonly settings?: ISettingsParam) {
-        this.outputFilePath = outputFilePath ? outputFilePath : './logs/logs.txt';
-        console.log(this.outputFilePath);
-        const loggerSettings = {
+    private constructor(outputFilePath?: string, settings?: ISettingsParam) {
+        LoggerService._outputFilePath = outputFilePath ? outputFilePath : './logs/logs.txt';
+        LoggerService._loggerSettings = {
             displayLoggerName: true,
             name: 'Logger service',
             overwriteConsole: true,
-            ...this.settings
+            ...settings
         }
 
-        this.logger = new Logger(loggerSettings);
+        this.logger = new Logger(LoggerService._loggerSettings);
         this.attachTransport();
     }
 
@@ -27,8 +28,8 @@ export class LoggerService {
     }
 
     private logToTransport(logObject: ILogObject) {
-        console.log(this.outputFilePath);
-        appendFileSync(this.outputFilePath as string, JSON.stringify(logObject) + "\n");
+        console.log(LoggerService._outputFilePath);
+        appendFileSync(LoggerService._outputFilePath as string, JSON.stringify(logObject) + "\n");
     }
 
     private attachTransport(): void {
