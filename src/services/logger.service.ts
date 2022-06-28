@@ -1,5 +1,4 @@
-import { appendFileSync } from "fs";
-import { resolve } from "path";
+import { appendFileSync, existsSync } from "fs";
 import { ILogObject, ISettingsParam, Logger } from "tslog";
 
 export class LoggerService {
@@ -13,10 +12,10 @@ export class LoggerService {
     private constructor(outputFilePath?: string, settings?: ISettingsParam) {
         LoggerService._outputFilePath = outputFilePath ? outputFilePath : './logs/logs.txt';
         LoggerService._loggerSettings = {
+            ...settings,
             displayLoggerName: true,
             name: 'Logger service',
-            overwriteConsole: true,
-            ...settings
+            overwriteConsole: true
         }
 
         this.logger = new Logger(LoggerService._loggerSettings);
@@ -28,8 +27,8 @@ export class LoggerService {
     }
 
     private logToTransport(logObject: ILogObject) {
-        console.log(LoggerService._outputFilePath);
-        appendFileSync(LoggerService._outputFilePath as string, JSON.stringify(logObject) + "\n");
+        if (!existsSync(LoggerService._outputFilePath)) open(LoggerService._outputFilePath, 'w');
+        appendFileSync(LoggerService._outputFilePath, JSON.stringify(logObject) + "\n");
     }
 
     private attachTransport(): void {
