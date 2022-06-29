@@ -8,7 +8,7 @@ export abstract class AuthMiddlewares {
     res: Response,
     next: NextFunction
   ): any {
-    if ((req as any).skipMiddlewares) {
+    if ((req as any).isApiCall) {
       return next();
     }
 
@@ -27,6 +27,14 @@ export abstract class AuthMiddlewares {
       return res.status(403).send({ message: 'Auth token invalid' });
     }
 
+    const decodedToken = AuthMiddlewares.getTokenPayload(accessToken);
+
+    const isSuspende: boolean = decodedToken.isSuspend;
+
+    if (isSuspende) {
+      return res.status(403).send({ message: 'Unauthorized: Suspended profile' });
+    }
+
     next();
   }
 
@@ -35,6 +43,10 @@ export abstract class AuthMiddlewares {
     res: Response,
     next: NextFunction
   ): any {
+    if ((req as any).isApiCall) {
+      return next();
+    }
+
     const accessToken: string = req.headers['x-access-token'] as string;
     const id = Number(req.body.id);
 
@@ -43,7 +55,7 @@ export abstract class AuthMiddlewares {
     const isProfileOwner: boolean = id === Number(decodedToken.id);
 
     if (!isProfileOwner) {
-      return res.status(400).send({ message: 'Unauthorized' });
+      return res.status(403).send({ message: 'Unauthorized' });
     }
 
     next();
@@ -54,6 +66,10 @@ export abstract class AuthMiddlewares {
     res: Response,
     next: NextFunction
   ): any {
+    if ((req as any).isApiCall) {
+      return next();
+    }
+
     const accessToken: string = req.headers['x-access-token'] as string;
     const restaurantId: string = req.body.restaurantId;
 
@@ -63,7 +79,7 @@ export abstract class AuthMiddlewares {
       restaurantId === String(decodedToken.restaurantId);
 
     if (!isRestaurantOwner) {
-      return res.status(400).send({ message: 'Unauthorized' });
+      return res.status(403).send({ message: 'Unauthorized' });
     }
 
     next();
@@ -74,6 +90,10 @@ export abstract class AuthMiddlewares {
     res: Response,
     next: NextFunction
   ): any {
+    if ((req as any).isApiCall) {
+      return next();
+    }
+
     const accessToken: string = req.headers['x-access-token'] as string;
     const excpectedRole = Roles.CUSTOMER;
 
@@ -91,6 +111,10 @@ export abstract class AuthMiddlewares {
     res: Response,
     next: NextFunction
   ): any {
+    if ((req as any).isApiCall) {
+      return next();
+    }
+
     const accessToken: string = req.headers['x-access-token'] as string;
     const excpectedRole = Roles.RESTAURANT_OWNER;
 
@@ -108,6 +132,10 @@ export abstract class AuthMiddlewares {
     res: Response,
     next: NextFunction
   ): any {
+    if ((req as any).isApiCall) {
+      return next();
+    }
+
     const accessToken: string = req.headers['x-access-token'] as string;
     const excpectedRole = Roles.DELIVERY_MAN;
 
@@ -125,6 +153,10 @@ export abstract class AuthMiddlewares {
     res: Response,
     next: NextFunction
   ): any {
+    if ((req as any).isApiCall) {
+      return next();
+    }
+
     const accessToken: string = req.headers['x-access-token'] as string;
     const excpectedRole = Roles.TECHNICAL_DEPARTMENT;
 
@@ -142,6 +174,10 @@ export abstract class AuthMiddlewares {
     res: Response,
     next: NextFunction
   ): any {
+    if ((req as any).isApiCall) {
+      return next();
+    }
+
     const accessToken: string = req.headers['x-access-token'] as string;
     const excpectedRole = Roles.COMERCIAL_DEPARTMENT;
 

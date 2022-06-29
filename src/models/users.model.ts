@@ -16,6 +16,7 @@ export interface IUser {
     referalCode: string;
 
     refreshToken: string;
+    isSuspend: boolean;
 
     createdAt: Date;
     updatedAt: Date
