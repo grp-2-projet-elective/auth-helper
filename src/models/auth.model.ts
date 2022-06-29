@@ -9,7 +9,7 @@ export interface TokenData {
   id: number;
   mail: string;
   role: Roles;
-  isSuspend: boolean;
+  isSuspended: boolean;
 
   restaurantId?: string;
 }
