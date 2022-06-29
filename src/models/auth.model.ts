@@ -8,7 +8,7 @@ export interface Tokens {
 export interface TokenData {
   id: number;
   mail: string;
-  role: Roles;
+  roleId: Roles;
   isSuspended: boolean;
 
   restaurantId?: string;
