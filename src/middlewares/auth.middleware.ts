@@ -52,7 +52,14 @@ export abstract class AuthMiddlewares {
 
     const decodedToken = AuthMiddlewares.getTokenPayload(accessToken);
 
-    const isProfileOwner: boolean = id === Number(decodedToken.id);
+    const isProfileOwner: boolean = (id === Number(decodedToken.id));
+    console.log('id:')
+    console.log(id)
+    console.log('decodedTokenId:')
+    console.log(decodedToken.id)
+    console.log('isProfileOwner:')
+    console.log(id === decodedToken.id)
+
 
     if (!isProfileOwner) {
       return res.status(403).send({ message: 'Unauthorized' });
