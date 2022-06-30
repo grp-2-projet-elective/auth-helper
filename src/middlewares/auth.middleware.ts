@@ -30,7 +30,6 @@ export abstract class AuthMiddlewares {
 
     const decodedToken = AuthMiddlewares.getTokenPayload(accessToken);
 
-    console.info(decodedToken)
     const isSuspended: boolean = decodedToken?.isSuspended;
 
     if (isSuspended) {
@@ -50,6 +49,11 @@ export abstract class AuthMiddlewares {
     }
 
     const accessToken: string = req.headers['x-access-token'] as string;
+
+    console.log('body')
+    console.log(req.body)
+    console.log('params')
+    console.log(req.params)
 
     let id;
     let mail;
