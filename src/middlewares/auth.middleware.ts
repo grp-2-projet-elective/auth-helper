@@ -29,9 +29,9 @@ export abstract class AuthMiddlewares {
 
     const decodedToken = AuthMiddlewares.getTokenPayload(accessToken);
 
-    const isSuspende: boolean = decodedToken?.isSuspended ? decodedToken.isSuspended : false;
+    const isSuspended: boolean = decodedToken?.isSuspended ? decodedToken.isSuspended : false;
 
-    if (isSuspende) {
+    if (isSuspended) {
       return res.status(403).send({ message: 'Unauthorized: Suspended profile' });
     }
 
@@ -48,18 +48,30 @@ export abstract class AuthMiddlewares {
     }
 
     const accessToken: string = req.headers['x-access-token'] as string;
-    const id = Number(req.body.id);
+
+    let id;
+    let mail;
+    if (req.params?.key) {
+      if (req.params.key.includes('@')) {
+        id = null
+        mail = req.params.key;
+      } else {
+        id = Number(req.params.key);
+        mail = null
+      }
+    } else {
+      id = Number(req.body.id);
+      mail = null
+    }
 
     const decodedToken = AuthMiddlewares.getTokenPayload(accessToken);
 
-    const isProfileOwner: boolean = (id === Number(decodedToken.id));
-    console.info('id:')
-    console.info(id)
-    console.info('decodedTokenId:')
-    console.info(decodedToken.id)
-    console.info('isProfileOwner:')
-    console.info(id === decodedToken.id)
-
+    let isProfileOwner: boolean;
+    if (mail?.length) {
+      isProfileOwner = (mail === decodedToken.mail);
+    } else {
+      isProfileOwner = (Number(id) === Number(decodedToken.id));
+    }
 
     if (!isProfileOwner) {
       return res.status(403).send({ message: 'Unauthorized' });
