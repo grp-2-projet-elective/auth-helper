@@ -35,7 +35,7 @@ export abstract class AuthMiddlewares {
       return res.status(403).send({ message: 'Unauthorized: Suspended profile' });
     }
 
-    next();
+    return next();
   }
 
   public static verifyProfileOwnership(
@@ -65,7 +65,7 @@ export abstract class AuthMiddlewares {
       return res.status(403).send({ message: 'Unauthorized' });
     }
 
-    next();
+    return next();
   }
 
   public static verifyRestaurantOwnership(
@@ -89,7 +89,7 @@ export abstract class AuthMiddlewares {
       return res.status(403).send({ message: 'Unauthorized' });
     }
 
-    next();
+    return next();
   }
 
   public static hasCustomerRole(
@@ -110,7 +110,7 @@ export abstract class AuthMiddlewares {
       return res.status(403).send({ message: 'Invalid role' });
     }
 
-    next();
+    return next();
   }
 
   public static hasRestaurantOwnerRole(
@@ -131,7 +131,7 @@ export abstract class AuthMiddlewares {
       return res.status(403).send({ message: 'Invalid role' });
     }
 
-    next();
+    return next();
   }
 
   public static hasDeliveryManRole(
@@ -152,7 +152,7 @@ export abstract class AuthMiddlewares {
       return res.status(403).send({ message: 'Invalid role' });
     }
 
-    next();
+    return next();
   }
 
   public static hasTechnicalDepartmentRole(
@@ -173,7 +173,7 @@ export abstract class AuthMiddlewares {
       return res.status(403).send({ message: 'Invalid role' });
     }
 
-    next();
+    return next();
   }
 
   public static isTechnicalDepartmentCall(
@@ -190,7 +190,7 @@ export abstract class AuthMiddlewares {
       (req as any).isTechnicalDepartmentCall = true;
     }
 
-    next();
+    return next();
   }
 
   public static hasCommercialDepartmentRole(
@@ -211,7 +211,7 @@ export abstract class AuthMiddlewares {
       return res.status(403).send({ message: 'Invalid role' });
     }
 
-    next();
+    return next();
   }
 
   public static isCommercialDepartmentCall(
@@ -228,7 +228,7 @@ export abstract class AuthMiddlewares {
       (req as any).isCommercialDepartmentCall = true;
     }
 
-    next();
+    return next();
   }
 
   public static getTokenPayload(accessToken: string): jwt.JwtPayload {
