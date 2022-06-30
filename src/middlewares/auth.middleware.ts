@@ -153,7 +153,6 @@ export abstract class AuthMiddlewares {
     res: Response,
     next: NextFunction
   ): any {
-    (req as any).isTechnicalDepartmentCall = true;
     if ((req as any).isApiCall) {
       return next();
     }
@@ -170,12 +169,28 @@ export abstract class AuthMiddlewares {
     next();
   }
 
+  public static isTechnicalDepartmentCall(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): any {
+    const accessToken: string = req.headers['x-access-token'] as string;
+    const excpectedRole = Roles.TECHNICAL_DEPARTMENT;
+
+    const tokenPayload = AuthMiddlewares.getTokenPayload(accessToken);
+
+    if (tokenPayload?.role === excpectedRole) {
+      (req as any).isTechnicalDepartmentCall = true;
+    }
+
+    next();
+  }
+
   public static hasCommercialDepartmentRole(
     req: Request,
     res: Response,
     next: NextFunction
   ): any {
-    (req as any).isCommercialDepartmentCall = true;
     if ((req as any).isApiCall) {
       return next();
     }
@@ -187,6 +202,23 @@ export abstract class AuthMiddlewares {
 
     if (tokenPayload?.role !== excpectedRole) {
       return res.status(403).send({ message: 'Invalid role' });
+    }
+
+    next();
+  }
+
+  public static isCommercialDepartmentCall(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): any {
+    const accessToken: string = req.headers['x-access-token'] as string;
+    const excpectedRole = Roles.COMERCIAL_DEPARTMENT;
+
+    const tokenPayload = AuthMiddlewares.getTokenPayload(accessToken);
+
+    if (tokenPayload?.role === excpectedRole) {
+      (req as any).isCommercialDepartmentCall = true;
     }
 
     next();
