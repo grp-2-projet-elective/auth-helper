@@ -43,7 +43,7 @@ export abstract class AuthMiddlewares {
     res: Response,
     next: NextFunction
   ): any {
-    if ((req as any).isApiCall) {
+    if ((req as any).isApiCall || (req as any).isCommercialDepartmentCall || (req as any).isTechnicalDepartmentCall) {
       return next();
     }
 
@@ -153,6 +153,7 @@ export abstract class AuthMiddlewares {
     res: Response,
     next: NextFunction
   ): any {
+    (req as any).isTechnicalDepartmentCall = true;
     if ((req as any).isApiCall) {
       return next();
     }
@@ -174,6 +175,7 @@ export abstract class AuthMiddlewares {
     res: Response,
     next: NextFunction
   ): any {
+    (req as any).isCommercialDepartmentCall = true;
     if ((req as any).isApiCall) {
       return next();
     }
