@@ -9,6 +9,7 @@ export abstract class AuthMiddlewares {
     next: NextFunction
   ): any {
     if ((req as any).isApiCall) {
+      console.info('API call: skip token verification');
       return next();
     }
 
@@ -29,7 +30,8 @@ export abstract class AuthMiddlewares {
 
     const decodedToken = AuthMiddlewares.getTokenPayload(accessToken);
 
-    const isSuspended: boolean = decodedToken?.isSuspended ? decodedToken.isSuspended : false;
+    console.info(decodedToken)
+    const isSuspended: boolean = decodedToken?.isSuspended;
 
     if (isSuspended) {
       return res.status(403).send({ message: 'Unauthorized: Suspended profile' });
