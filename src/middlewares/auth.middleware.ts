@@ -29,7 +29,7 @@ export abstract class AuthMiddlewares {
 
     const decodedToken = AuthMiddlewares.getTokenPayload(accessToken);
 
-    const isSuspende: boolean = decodedToken.isSuspend;
+    const isSuspende: boolean = decodedToken?.isSuspended ? decodedToken.isSuspended : false;
 
     if (isSuspende) {
       return res.status(403).send({ message: 'Unauthorized: Suspended profile' });
