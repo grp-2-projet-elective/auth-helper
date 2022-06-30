@@ -53,12 +53,12 @@ export abstract class AuthMiddlewares {
     const decodedToken = AuthMiddlewares.getTokenPayload(accessToken);
 
     const isProfileOwner: boolean = (id === Number(decodedToken.id));
-    console.log('id:')
-    console.log(id)
-    console.log('decodedTokenId:')
-    console.log(decodedToken.id)
-    console.log('isProfileOwner:')
-    console.log(id === decodedToken.id)
+    console.info('id:')
+    console.info(id)
+    console.info('decodedTokenId:')
+    console.info(decodedToken.id)
+    console.info('isProfileOwner:')
+    console.info(id === decodedToken.id)
 
 
     if (!isProfileOwner) {
