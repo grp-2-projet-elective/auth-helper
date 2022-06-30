@@ -9,7 +9,6 @@ export abstract class AuthMiddlewares {
     next: NextFunction
   ): any {
     if ((req as any).isApiCall) {
-      console.info('API call: skip token verification');
       return next();
     }
 
@@ -49,11 +48,6 @@ export abstract class AuthMiddlewares {
     }
 
     const accessToken: string = req.headers['x-access-token'] as string;
-
-    console.log('body')
-    console.log(req.body)
-    console.log('params')
-    console.log(req.params)
 
     let id;
     let mail;
