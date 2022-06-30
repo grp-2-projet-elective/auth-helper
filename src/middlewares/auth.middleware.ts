@@ -66,7 +66,7 @@ export abstract class AuthMiddlewares {
     res: Response,
     next: NextFunction
   ): any {
-    if ((req as any).isApiCall) {
+    if ((req as any).isApiCall || (req as any).isCommercialDepartmentCall || (req as any).isTechnicalDepartmentCall) {
       return next();
     }
 
